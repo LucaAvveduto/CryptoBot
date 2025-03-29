@@ -1,0 +1,29 @@
+{
+  "name": "cryptobot",
+  "version": "1.0.0",
+  "description": "Cryptobot source code",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucaAvveduto/CryptoBot.git"
+  },
+  "keywords": [
+    "TG",
+    "NODE"
+  ],
+  "author": "Luke",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/LucaAvveduto/CryptoBot/issues"
+  },
+  "homepage": "https://github.com/LucaAvveduto/CryptoBot#readme",
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "fs": "^0.0.1-security",
+    "node-telegram-bot-api": "^0.66.0"
+  },
+  "type": "commonjs"
+}
