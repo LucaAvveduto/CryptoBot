@@ -7,13 +7,13 @@ async function main() {
   const bot = new TelegramBot(token, { polling: true });
 
   await bot.setMyCommands([
-    { command: "/encrypt", description: "Crypt a message giving password" },
-    { command: "/decrypt", description: "Decrypt a message giving password" },
+    { command: "/encrypt", description: "Crypt a message giving a key" },
+    { command: "/decrypt", description: "Decrypt a message giving the key" },
   ]);
 
   bot.on("message", async(msg) => {
     const chatId = msg.chat.id;
-    const text = msg.text;
+    const text = msg.text.trim();
 
     if (text === "/start") {
         return await bot.sendMessage(
@@ -52,7 +52,9 @@ For any question just text me @LukeInCode or visit my personal
       const ciphertext = CryptoJS.AES.encrypt(word, key);
       return await bot.sendMessage(
         chatId,
-        `Done! Here the word encrypted: <b>${ciphertext}</b> there's the key <b>${key}</b> 🔐🔐`,
+        `Done! Here the word encrypted: 
+<b>${ciphertext}</b> 
+and there's the key <b>${key}</b> 🔐🔐`,
         { parse_mode: "HTML" }
       );
     }
@@ -69,7 +71,10 @@ For any question just text me @LukeInCode or visit my personal
           { parse_mode: "HTML" }
         );
       if (!key) return await bot.sendMessage(chatId, "<b>Insert a valid key</b>",{ parse_mode: "HTML" });
-      await bot.sendMessage(chatId, `Decrypting: <b>${ciphertext}</b> using key: <b>${key}</b> ↻`,{ parse_mode: "HTML" });
+      await bot.sendMessage(chatId, 
+        `Decrypting text: 
+<b>${ciphertext}</b> 
+using key: <b>${key}</b> ↻`,{ parse_mode: "HTML" });
       const bytes = CryptoJS.AES.decrypt(ciphertext.toString(), key);
       const plaintext = bytes.toString(CryptoJS.enc.Utf8);
       if (plaintext) return await bot.sendMessage(
