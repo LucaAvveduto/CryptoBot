@@ -1,6 +1,8 @@
 const fs = require("fs");
-const CryptoJS = require("crypto-js");
+const crypto_lib = require("./crypto");
 const TelegramBot = require("node-telegram-bot-api");
+
+const CryptoJS = crypto_lib();
 
 async function main() {
   const token = await JSON.parse(fs.readFileSync("conf.json")).tgKey;
@@ -49,7 +51,7 @@ For any question just text me @LukeInCode or visit my personal
         );
       if (!key) return await bot.sendMessage(chatId, "<b>Insert a valid key</b>",{ parse_mode: "HTML" });
       await bot.sendMessage(chatId, `Encrypting word: <b>${word}</b> using key: <b>${key}</b> ↻`,{ parse_mode: "HTML" });
-      const ciphertext = CryptoJS.AES.encrypt(word, key);
+      const ciphertext = CryptoJS.encrypt(word, key);
       return await bot.sendMessage(
         chatId,
         `Done! Here the word encrypted: 
@@ -75,8 +77,7 @@ and there's the key <b>${key}</b> 🔐🔐`,
         `Decrypting text: 
 <b>${ciphertext}</b> 
 using key: <b>${key}</b> ↻`,{ parse_mode: "HTML" });
-      const bytes = CryptoJS.AES.decrypt(ciphertext.toString(), key);
-      const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+      const plaintext = CryptoJS.decrypt(ciphertext.toString(), key);
       if (plaintext) return await bot.sendMessage(
         chatId,
         `Done! the encrypted word is <b>${plaintext}</b> 🔓`,
