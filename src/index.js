@@ -81,7 +81,7 @@ using key: <b>${key}</b> ↻`,{ parse_mode: "HTML" });
         `Done! the encrypted word is <b>${plaintext}</b> 🔓`,
         { parse_mode: "HTML" }
       );
-      else return await bot.sendMessage(chatId,"<b>The gived text is not encrypted with AES</b> ⁴⁰⁴",{ parse_mode: "HTML" });
+      else return await bot.sendMessage(chatId,"<b>The gived text is not encrypted with AES or the key is not correct</b> ⁴⁰⁴",{ parse_mode: "HTML" });
     }
 
     return await bot.sendMessage(chatId,"Command not found! Type /start to see what I can do 📋");
